@@ -1,17 +1,4 @@
 HIGH LEVEL PROGRAMMING - PYTHON
-0x00 - Python - Hello, World
-
-T0 Shell script that runs a Python script
-T1 Shell script that runs Python code
-T3 Print a sentance
-T4 Print an integer stored in the variable number
-T5 Print a float stored in the variable number
-T6 Print string three times
-T7 Concatenate a string
-T8 Complete source code
-T9 Complete source code
-T10 Print the Zen of python
-
 
 Requirements
 Python Scripts
