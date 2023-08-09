@@ -1,47 +1,49 @@
 #include "lists.h"
-#include <stdlib.h>
 
 /**
- * insrt_node - inserting a new node to be sorted
- * @ptr: pointr in the beginning of linked list
- * @numb:  n value
+ * insert_node - inserts a new node so that linked list be sorted
+ * @head: pointr in beginning of linked list
+ * @numb: value for n
  * Return: new node adress or NULL if error
  */
 
-listint_t *insrt_node(listint_t **ptr, int numb)
+listint_t *insert_node(listint_t **head, int numb)
 {
-	listint_t *nv, *hold = *ptr;
-	unsigned int i = 0;
+	listint_t *new;
+	listint_t *current;
 
-	if (!(hold) || (*hold).n > numb) /*in the beginning of linked list*/
+	current = *head;
+
+	new = malloc(sizeof(listint_t));
+	if (!new)
+		return (NULL);
+	new->n = numb;
+	new->next = NULL;
+
+	if (!*head)
+		*head = new;
+	else if (current->n >= numb)
 	{
-		nv = malloc(sizeof(listint_t));
-		if (!nv)
-			return (NULL);
-
-		(*nv).n = numb;
-		(*nv).next = *ptr;
-
-		*ptr = nv;
-
-		return (*ptr);
+		*head = new;
+		new->next = current;
 	}
-
-	while (hold)
+	else if (current->next)
 	{
-		if (!((*hold).next) || (*hold).next->n > numb)
+		while (current->next)
 		{
-			nv = malloc(sizeof(listint_t));
-			if (!nv)
-				return (NULL);
-			(*nv).n = numb;
-			(*nv).next = (*hold).next;
-			(*hold).next = nv;
-			return (nv);
+			if (current->next->n >= numb)
+			{
+				new->next = current->next;
+				current->next = new;
+				return (new);
+			}
+			if (!current->next->next)
+				break;
+			current = current->next;
 		}
-		hold = (*hold).next;
-		i++;
+		current->next->next = new;
 	}
-
-	return (NULL);
+	else
+		current->next = new;
+	return (new);
 }
