@@ -1,27 +1,4 @@
 #include "lists.h"
-#include <stdlib.h>
-
-/**
- * reverse_listint - reverses the content of an array of integers
- * @k: int array to be reversed
- * @j: num of elements in the array
- * Return: concatenated string
- */
-
-void reverse_listint(int *k, int j)
-{
-        int *begin = k;
-        int *end;
-        int hold = 0;
-
-        end = k + j - 1;
-        for (; begin < end; begin++, end--)
-        {
-                hold = *end;
-                *end = *begin;
-                *begin = hold;
-        }
-}
 
 /**
  * is_palindrome - Return 1  if palindrome, 0 if not
@@ -31,26 +8,26 @@ void reverse_listint(int *k, int j)
 
 int is_palindrome(listint_t **head)
 {
-        int size, *list, *rev;
-        listint_t *copy = *head;
+	listint_t *current = *head, *palin = *head;
+	int counter = 0, a = 0, k = 0;
 
-        if (!head || !copy)
-                return (0);
-        if (!copy->next)
-                return (1);
+	if (!*head)
+		return (1);
 
-        list = malloc(sizeof(int *));
-        if (!list)
-                return (0);
-        rev = malloc(sizeof(int *));
-        if (!rev)
-                return (0);
-        for (size = 0; copy; copy = copy->next, size++)
-                list[size] = copy->j;
-
-        list = rev;
-        reverse_listint(rev, size);
-        if (list == rev)
-                return (1);
-        return (0);
+	while (current)
+	{
+		current = current->next;
+		counter++;
+	}
+	current = *head;
+	for (a = 1; a <= counter; a++)
+	{
+		for (k = a; k <= counter - a; k++)
+			palin = palin->next;
+		if (current->n != palin->n)
+			return (0);
+		current = current->next;
+		palin = current;
+	}
+	return (1);
 }
